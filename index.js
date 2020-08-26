@@ -1066,103 +1066,14 @@ client.on("message", async message => {
 
 
 
-//شراء رتبه
-giftKeys = {};
-let devs = ["735571966815240202"];
-client.on("message", msg =>{
-  let args = msg.content.split(" ").slice(1)[0];
-  let cmd = msg.content.split(' ')[0]
-  if(cmd === `${prefix}gift`){
-  let roleW = msg.mentions.roles.first();
-  if(!devs.includes(msg.author.id)){
-    let embed = new Discord.RichEmbed()
-    .setColor("RANDOM")
-    .setTitle(`**ليس لديك صلاحيات**`);
-    msg.reply(embed).then( z => z.delete(3000));
-     return
-  } 
-  if(!roleW) {
-    let embed = new Discord.RichEmbed()
-    .setColor("RANDOM")
-    .setTitle(`:x: - منشن الرتبة \`${prefix}gift <@admin-role>\``);
-    msg.reply(embed).then( z => z.delete(3000)); return
-  };
-  let role = msg.guild.roles.find(`name`, roleW.name);
-  if(!role) {
-    let embed = new Discord.RichEmbed()
-    .setColor("RANDOM")
-    .setTitle(`:x: - Could't find \`${roleW.name}\` role.`);
-  msg.reply(embed).then( msgs => msgs.delete(3000)); 
-  return
-  }
-  var randomkeys = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-  var gift = "";
-  for (var y = 0; y < 16; y++) {   ///16
-    gift +=  `${randomkeys.charAt(Math.floor(Math.random() * randomkeys.length))}`;
-  }
-  giftKeys[gift] = role;
-  let embed = new Discord.RichEmbed()
-  .setColor("RANDOM")
-  .setTitle(`:ok_hand: - **تم ارسآل الكود على الخاص**`);
-  msg.reply(embed);
-  let embed2= new Discord.RichEmbed()
-  .setAuthor(msg.author.username, msg.author.displayAvatarURL)
-  .setThumbnail(msg.author.avatarURL)
-  .addField("**Key Of Gift**", gift,true)
-  .addField("Role",giftKeys[gift].name,true)
-  .addField("This Key Made by", msg.author, true)
-  .addField("The Room", msg.channel , true)
-  .setTimestamp()
-  .setFooter(client.user.username,client.user.displayAvatarURL)  
-  msg.author.send(embed2);
-};
-if( cmd === `${prefix}used`){
- 
-  if(!args) {   
-    let embed = new Discord.RichEmbed()
-    .setColor("RANDOM")
-    .setTitle(`:x: - **الرجاء ادخال كود الهدية** \`${prefix}used <Key>\``)
-    msg.reply(embed).then( z => z.delete(3000));
-    return
-}
-let embed = new Discord.RichEmbed()
-.setTitle(`**جاري التحقق من الكود**`)
-.setColor("RANDOM")
-  msg.reply(embed).then( msgs =>{
-  if(giftKeys[args]){
-    let hav = msg.member.roles.find(`name`, giftKeys[args].name);
-    if(hav){
-    let embed = new Discord.RichEmbed()
-    .setTitle(`:x: - **انت تمتلك هذه الرتبة مسبقًا**  \`${giftKeys[args].name}\``)
-    .setColor("RANDOM")
-    msgs.edit(embed)
-    return
-    }
-    let embed = new Discord.RichEmbed()
-    .setTitle(`:tada: - **مبروك تم اعطائك رتبة** \`${giftKeys[args].name}\``)
-    .setColor("RANDOM")
-    msgs.edit(embed)
-    msg.member.addRole(giftKeys[args]);
-    delete giftKeys[args]
-  }else{
-    let embed = new Discord.RichEmbed()
-    .setTitle(`:x: - **الكود غير صيحيح أو انه مستعمل من قبل**`)
-    .setColor("RANDOM")
-    msgs.edit(embed)
-  }});
-};
-});
 
-
-
-
-
+//تعديل مهم
 //معرفه صاحب البوت
 client.on('message', async message => {
 if(message.content.startsWith(prefix + "owner")) {
   if(!message.channel.guild) return;
   let i = client.users.size;//الايدي حقك
-  if(message.author.id !== '735571966815240202') return message.channel.send('❎,');
+  if(message.author.id !== 'الايدي') return message.channel.send('❎,');
   message.channel.send("✅,")
 }
 })
@@ -1251,7 +1162,7 @@ client.on('message', async message => {
 })
 
 
-
+//تعديل مهم
 //تيكت
 const category = "748108350692130896";//ايدي الcategory
 let mtickets   = true;
@@ -1284,9 +1195,9 @@ client.on('message',async message => {
       .then(c => {
         tchannels.push(c.id);
 	     	c.setParent(category);
-        let role = message.guild.roles.find("name", "✦┃ Support");//اسم الرتبه
+        let role = message.guild.roles.find("name", "✦┃ Support");//اسم الرتبه اللي تشوف التيكت
         let role2 = message.guild.roles.find("name", "@everyone");
-        let role3 = message.guild.roles.find("name", "✦┃ Top Support");//اسم الرتبه
+        let role3 = message.guild.roles.find("name", "✦┃ Top Support");//اسم الرتبه اللي تشوف التيكت
         c.overwritePermissions(role, {
           SEND_MESSAGES: true,
           READ_MESSAGES: true
@@ -1481,8 +1392,6 @@ if(!user)return message.channel.send("**Sorry Missing User/Mention**")
 var guilds = {};
 client.on('message',async message => {
   if(message.content.startsWith(prefix + "submit")) {
-    if (!message.guild.member(message.author).hasPermission("ADMINISTRATOR"))
-      return message.reply("**اسف ولاكن التقديمات مقفوله لحين اخر**");
  
 if(!message.channel.guild) return message.reply(' ');
  
@@ -1633,13 +1542,13 @@ ${message.author.id}`);
 );
  
     })}});
-
+//تعديل مهم
     client.on('message',async message => {
   let mention = message.mentions.members.first();
   let role = message.content.split(" ").slice(2).join(" ");
   let mySupport = message.guild.roles.find('name',role);
   if(message.content.startsWith(prefix + "yes")) {
-    let acRoom = message.guild.channels.find('name', '⚚・yes・no');
+    let acRoom = message.guild.channels.find('name', '⚚・yes・no');//اسم الروم
     if(!acRoom) return message.reply("انت لم تعمل روم القبول والرفظ");
     if(acRoom) {
     if(!message.guild.member(message.author).hasPermission("MANAGE_ROLES")) return;
@@ -1659,7 +1568,7 @@ client.on('message',async message => {
   let mention = message.mentions.members.first();
   if(message.content.startsWith(prefix + "no")) {
   if(!message.channel.guild) return;
-  let acRoom = message.guild.channels.find('name', '⚚・yes・no');
+  let acRoom = message.guild.channels.find('name', '⚚・yes・no');//اسم الروم
   if(!acRoom) return message.reply("انت لم تعمل روم القبول والرفظ");
   if(!message.guild.member(message.author).hasPermission("MANAGE_ROLES")) return;
   if(!mention) return message.reply("منشن شخص");
